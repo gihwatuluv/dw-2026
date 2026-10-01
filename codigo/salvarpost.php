@@ -1,23 +1,14 @@
 <?php
+    session_start();
+    
+    require_once "conexao.php";
 
-$id = $_GET['id'];
-$titulo = $_POST['titulo'];
-$conteudo = $_POST['conteudo'];
+    $idusuario = $_SESSION['idusuario'];
+    $texto = $_POST['texto'];
 
-if ($id == 0) {
-    $sql = "INSERT INTO postagem (titulo, conteudo)
-            VALUES ('$titulo', '$conteudo');";
-}
-else {
-    $sql = "UPDATE postagem
-            SET titulo = '$titulo',
-                conteudo = '$conteudo'
-            WHERE idpostagem = $id";
-}
+    $sql = "INSERT INTO postagem (texto, idusuario) VALUES ('$texto', $idusuario)";
 
-require_once "../conexao.php";
-mysqli_query($conexao, $sql);
+    mysqli_query($conexao, $sql);
 
-header("Location: sucesso.html");
-
+    header("Location: principal.php");
 ?>
